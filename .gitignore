@@ -3,3 +3,7 @@ ConfigVars
 *.obj
 *.a
 *.lib
+Makefile
+Makefile.config
+*.swp
+*.swo
