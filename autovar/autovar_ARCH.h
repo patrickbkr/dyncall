@@ -32,10 +32,10 @@
 # define ARCH_X64
 #elif defined(_M_IA64) || defined(__ia64__)
 # define ARCH_IA64
-#elif defined(_M_PPC) || defined(__powerpc__) || defined(__powerpc) || defined(__POWERPC__) || defined(__ppc__) || defined(__power__)
-# define ARCH_PPC
 #elif defined(__ppc64__) || defined(_ARCH_PPC64) || defined(__power64__)
 # define ARCH_PPC64
+#elif defined(_M_PPC) || defined(__powerpc__) || defined(__powerpc) || defined(__POWERPC__) || defined(__ppc__) || defined(__power__)
+# define ARCH_PPC
 #elif defined(__mips64__) || defined(__mips64)
 # define ARCH_MIPS64
 #elif defined(_M_MRX000) || defined(__mips__)
