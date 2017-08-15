@@ -19,9 +19,10 @@
 
 \newpage
 
-\section{Literature}
+% Force a cut for html output, here.
+\ifhtml{\CutAt{likesection}}
 
-\begin{thebibliography}{14}
+\begin{thebibliography}{99}
 \bibitem{Erlang}
 	Erlang/OTP\\
 	\url{http://www.erlang.org}
@@ -117,6 +118,10 @@
 	Debian ARM EABI Port Wiki\\
 	\url{http://wiki.debian.org/ArmEabiPort}
 
+\bibitem{armhf}
+	Debian ArmHardFloatPort\\
+	\url{https://wiki.debian.org/ArmHardFloatPort}
+
 \bibitem{x64Win}
 	MSDN: x64 Software Conventions\\
 	\url{http://msdn.microsoft.com/en-us/library/ms235286\%28VS.80\%29.aspx}
@@ -127,7 +132,23 @@
 
 \bibitem{SPARCSysV}
 	System V Application Binary Interface - SPARC Processor Supplement\\
-	\url{http://www.sparc.com/standards/psABI3rd.pdf}
+	\url{http://sparc.org/wp-content/uploads/2014/01/psABI3rd.pdf.gz}
+
+\bibitem{SPARCV9SysV}
+	System V Application Binary Interface - SPARC Version 9 Processor Supplement\\
+	\url{http://sparc.org/wp-content/uploads/2014/01/64.psabi\_.1.35.pdf1.gz}
+
+\bibitem{SPARCV8}
+	The SPARC Architecture Manual - Version 8\\
+	\url{http://sparc.org/wp-content/uploads/2014/01/v8.pdf.gz}
+
+\bibitem{SPARCV9}
+	The SPARC Architecture Manual - Version 9\\
+	\url{http://sparc.org/wp-content/uploads/2014/01/SPARCV9.pdf.gz}
+
+%\bibitem{SPARCRef}
+%	SPARC Assembly Language Reference Manual\\
+%	\url{http://docs.oracle.com/cd/E19120-01/open.solaris/816-1681/index.html}
 
 \bibitem{ppcMacOSX}
 	Introduction to Mac OS X ABI Function Call Guide\\
@@ -148,6 +169,26 @@
 \bibitem{ppcelf64abi}
 	64-bit PowerPC ELF Application Binary Interface Supplement 1.9\\
 	\url{http://refspecs.linuxfoundation.org/ELF/ppc64/PPC-elf64abi.html}
+
+\bibitem{MIPSo32}
+	MIPS Calling Conventions Summary\\
+	\url{http://courses.cs.washington.edu/courses/cse410/09sp/examples/MIPSCallingConventionsSummary.pdf}
+
+\bibitem{MIPSo64}
+	MIPS O64 Application Binary Interface for GCC\\
+	\url{http://gcc.gnu.org/projects/mipso64-abi.html}
+
+\bibitem{MIPSn32/n64}
+	MIPSpro™ N32 ABI Handbook\\
+	\url{https://www.linux-mips.org/pub/linux/mips/doc/ABI/MIPS-N32-ABI-Handbook.pdf}
+
+\bibitem{MIPSeabi}
+	mips eabi documentation...\\
+	\url{http://www.cygwin.com/ml/binutils/2003-06/msg00436.html}
+
+\bibitem{MIPSnubi}
+	NUBI - A Revised ABI for the MIPS® Architecture\\
+	\url{ftp://ftp.linux-mips.org//pub/linux/mips/doc/NUBI/MD00438-2C-NUBIDESC-SPC-00.20.pdf}
 
 \bibitem{devkitPro}
 	devkitPro - homebrew game development\\

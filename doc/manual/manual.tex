@@ -46,6 +46,13 @@
 		#1%
 	\fi%
 }
+\newcommand{\casehtml}[2]{%
+	\ifx\HCode\Undef%
+		#2%
+	\else%
+		#1%
+	\fi%
+}
 
 
 % Packages.
@@ -67,9 +74,7 @@
 \newcommand{\dc}{\emph{dyncall}}
 \newcommand{\capi}[1]{%
 	\noindent%
-%	\begin{verbatim}%
 		{\tt #1}%
-%	\end{verbatim}%
 }
 \newcommand{\tab}{\indent}
 
@@ -87,13 +92,12 @@
 %\setlength{\parindent}{0mm}
 %\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
 
-\newcommand{\ninetyb}{\begin{sideways}}
-\newcommand{\ninetye}{\end{sideways}}
+\newcommand{\ninety}[1]{\begin{sideways}#1\end{sideways}}
 
 \renewcommand{\paragraph}[1]{%
 	\par\vspace{12pt}%
 	\noindent%
-	{\bf#1}%
+	\textbf{#1}%
 	\par%
 	\vspace{6pt}%
 }%
@@ -151,7 +155,7 @@
 \lstset{basicstyle=\ttfamily}
 
 % text building blocks
-\newcommand{\group}[1]{{\it$<$#1$>$}}
+\newcommand{\group}[1]{\textit{$<$#1$>$}}
 \newcommand{\sigchar}[1]{'{\tt #1}'}
 \newcommand{\sigstr}[1]{"{\tt #1}"}
 \newcommand{\cenum}[1]{#1}

@@ -15,8 +15,6 @@
 .\"
 .Dd $Mdocdate$
 .Dt dyncall 3
-.Os
-
 .Sh NAME
 .Nm dyncall
 .Nd encapsulation of architecture-, OS- and compiler-specific function call
@@ -114,10 +112,12 @@ sense (e.g. using a PowerPC calling convention on a MIPS platform) and are
 silently ignored.
 .Pp
 .Fn dcReset
-resets the internal stack of arguments and prepares it for the selected mode.
+resets the internal stack of arguments and prepares it for a new call.
 This function should be called after setting the call mode (using dcMode), but
 prior to binding arguments to the CallVM. Use it also when reusing a CallVM, as
 arguments don't get flushed automatically after a function call invocation.
+Note: you should also call this function after initial creation of the a CallVM
+object, as dcNewCallVM doesn't do this, implicitly.
 .Pp
 .Fn dcArgBool ,
 .Fn dcArgChar ,
@@ -187,13 +187,19 @@ library, this function would be called as follows:
 	r = dcCallDouble(vm, (DCpointer)&sqrt);
 	dcFree(vm);
 .Ed
+.Sh CONFORMING TO
+The dyncall library needs at least a c99 compiler with additional support for
+anonymous structs/unions (which were introduced officially in c11). Given that
+those are generally supported by pretty much all major c99 conforming compilers
+(as default extension), it should build fine with a c99 toolchain. Strictly
+speaking, dyncall conforms to c11, though.
+.Ed
 .Sh SEE ALSO
 .Xr dyncallback 3 ,
 .Xr dynload 3
 and the
 .Nm
-manual (available in PDF format) for a way more detailed documentation of this
-library.
+manual (available in HTML and PDF format) for more information.
 .Sh AUTHORS
 .An "Daniel Adler" Aq dadler@uni-goettingen.de
 .An "Tassilo Philipp" Aq tphilipp@potion-studios.com

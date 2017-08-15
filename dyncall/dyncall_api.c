@@ -157,6 +157,7 @@ DCint dcGetError(DCCallVM *vm)
   return vm->mError;
 }
 
+/*@@@ not used, (re)introduce or cleanup
 const char* dcGetErrorString(int mode)
 {
   switch(mode) {
@@ -165,4 +166,5 @@ const char* dcGetErrorString(int mode)
     default: return "(unknown mode id)";
   }
 }
+*/
 
