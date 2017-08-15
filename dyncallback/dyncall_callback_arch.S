@@ -64,16 +64,26 @@
 #    include "dyncall_callback_ppc32.S"
 #  elif defined(DC__Arch_PPC64)
 #    include "dyncall_callback_ppc64.S"
+#  elif defined(DC__Arch_MIPS) || defined(DC__Arch_MIPS64)
+#    include "dyncall_callback_mips_gas.S"
 #  elif defined(DC__Arch_ARM_ARM)
-#    include "dyncall_callback_arm32_arm_gas.s"
+#    include "dyncall_callback_arm32_arm_gas.S"
 #  elif defined(DC__Arch_ARM_THUMB)
 #    include "dyncall_callback_arm32_thumb_gas.S"
 #  elif defined(DC__Arch_Sparc)
 #    include "dyncall_callback_sparc32.s"
-#  elif defined(DC__Arch_Sparcv9)
+#  elif defined(DC__Arch_Sparc64)
 #    include "dyncall_callback_sparc64.s"
 #  elif defined(DC__Arch_ARM64)
 #    include "dyncall_callback_arm64.S"
 #  endif
+#endif
+
+
+/* Use .note.GNU-stack to explicitly indicate a non-exec stack, b/c of bad   */
+/* default behaviour when translating handwritten assembly files (needed on  */
+/* GNU platforms, Android and FreeBSD, as tests have shown).                 */
+#if (defined(DC__C_CLANG) || defined(DC__C_GNU)) && defined(__ELF__) && (defined(DC__OS_Linux) || defined(DC__OS_FreeBSD))
+.section .note.GNU-stack,"",%progbits
 #endif
 

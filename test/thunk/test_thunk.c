@@ -38,10 +38,21 @@
 
 #include <assert.h>
 #include <errno.h>
+#include <signal.h>
+#include <setjmp.h>
+#include <string.h>
+
+jmp_buf jbuf;
+
+
+void segv_handler(int sig)
+{
+  longjmp(jbuf, 1);
+}
 
 void my_entry(const char* text)
 {
-  printf("%s: 1\n", text);
+  printf("%s: %d\n", text, strcmp(text, "wx") == 0 || strcmp(text, "stack") == 0 || strcmp(text, "heap") == 0); /* @@@ */
 }
 
 typedef void (printfun)(const char*);
@@ -52,7 +63,10 @@ void test_stack()
   printfun* fp;
   dcbInitThunk(&t, &my_entry);
   fp = (printfun*)&t;
-  fp("stack");
+  if(setjmp(jbuf) != 0)
+    printf("sigsegv\n");
+  else
+    fp("stack");
 }
 
 #include <stdlib.h>
@@ -67,7 +81,10 @@ void test_heap()
   }
   dcbInitThunk(p, &my_entry);
   fp = (printfun*)p;
-  fp("heap");
+  if(setjmp(jbuf) != 0)
+    printf("sigsegv\n");
+  else
+    fp("heap");
   free(p);
 }
 
@@ -81,14 +98,25 @@ void test_wx()
     return;
   }
   dcbInitThunk(p, &my_entry);
+  err = dcInitExecWX((void*)p, sizeof(DCThunk));
+  if(err) {
+    dcFreeWX((void*)p, sizeof(DCThunk));
+    printf("0\n");
+    return;
+  }
   fp = (printfun*)p;
-  fp("wx");
+  if(setjmp(jbuf) != 0)
+    printf("sigsegv\n");
+  else
+    fp("wx");
   dcFreeWX((void*)p, sizeof(DCThunk));
 }
 
 int main()
 {
   dcTest_initPlatform();
+
+  signal(SIGSEGV, segv_handler);
 
   printf("Allocating ...\n");
   printf("... W^X memory: ");

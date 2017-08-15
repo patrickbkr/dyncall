@@ -43,7 +43,7 @@
 #  if defined(DC__Arch_Intel_x86)
 #    include "dyncall_call_x86.S"
 #  elif defined(DC__Arch_AMD64)
-#    include "dyncall_call_x64-att.S"
+#    include "dyncall_call_x64.S"
 #  elif defined(DC__Arch_ARM_ARM)
 #    if defined(DC__ABI_ARM_HF)
 #      include "dyncall_call_arm32_arm_armhf.S"
@@ -68,12 +68,20 @@
 #    include "dyncall_call_ppc64.S"
 #  elif defined(DC__Arch_MIPS) || defined(DC__Arch_MIPS64)
 #    include "dyncall_call_mips_gas.S"
-#  elif defined(DC__Arch_Sparcv9)
-#    include "dyncall_call_sparc_v9.S"
+#  elif defined(DC__Arch_Sparc64)
+#    include "dyncall_call_sparc64.s"
 #  elif defined(DC__Arch_Sparc)
-#    include "dyncall_call_sparc.S"
+#    include "dyncall_call_sparc.s"
 #  else
 #    error Unsupported Architecture.
 #  endif
+#endif
+
+
+/* Use .note.GNU-stack to explicitly indicate a non-exec stack, b/c of bad   */
+/* default behaviour when translating handwritten assembly files (needed on  */
+/* GNU platforms, Android and FreeBSD, as tests have shown).                 */
+#if (defined(DC__C_CLANG) || defined(DC__C_GNU)) && defined(__ELF__) && (defined(DC__OS_Linux) || defined(DC__OS_FreeBSD))
+.section .note.GNU-stack,"",%progbits
 #endif
 

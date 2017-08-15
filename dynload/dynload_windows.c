@@ -6,7 +6,7 @@
  Description: 
  License:
 
-   Copyright (c) 2007-2015 Daniel Adler <dadler@uni-goettingen.de>, 
+   Copyright (c) 2007-2017 Daniel Adler <dadler@uni-goettingen.de>, 
                            Tassilo Philipp <tphilipp@potion-studios.com>
 
    Permission to use, copy, modify, and distribute this software for any
@@ -38,23 +38,27 @@
 
 #include <windows.h>
 
+
 DLLib* dlLoadLibrary(const char* libPath)
 {
-  if (libPath != NULL) {
-    return (DLLib*) LoadLibraryA(libPath);
-    /*return (DLLib*) LoadLibraryA(libPath, NULL, LOAD_WITH_ALTERED_SEARCH_PATH);*/
-  } else {
-    return (DLLib*) GetModuleHandle(NULL);
-  }
+  return (DLLib*)(libPath != NULL ? LoadLibraryA(libPath) : GetModuleHandle(NULL));
 }
 
-void* dlFindSymbol(DLLib* libHandle, const char* symbol)
+
+void* dlFindSymbol(DLLib* pLib, const char* pSymbolName)
 {
-  return (void*) GetProcAddress( (HINSTANCE)libHandle, symbol);
+  return (void*)GetProcAddress((HINSTANCE)pLib, pSymbolName);
 }
 
-void  dlFreeLibrary(DLLib* libHandle)
+
+void dlFreeLibrary(DLLib* pLib)
 {
-  FreeLibrary( (HINSTANCE)libHandle );
+  FreeLibrary((HINSTANCE)pLib);
+}
+
+
+int dlGetLibraryPath(DLLib* pLib, char* sOut, int bufSize)
+{
+  return GetModuleFileNameA((HMODULE)pLib, sOut, bufSize)+1; /* strlen + '\0' */
 }
 
