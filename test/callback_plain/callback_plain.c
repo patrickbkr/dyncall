@@ -6,7 +6,7 @@
  Description: 
  License:
 
-   Copyright (c) 2011-2015 Daniel Adler <dadler@uni-goettingen.de>,
+   Copyright (c) 2011-2018 Daniel Adler <dadler@uni-goettingen.de>,
                            Tassilo Philipp <tphilipp@potion-studios.com>
 
    Permission to use, copy, modify, and distribute this software for any
@@ -23,7 +23,6 @@
 
 */
 
-#include "../../dyncallback/dyncall_thunk.h"
 #include "../../dyncallback/dyncall_callback.h"
 #include "../common/platformInit.h"
 #include "../common/platformInit.c" /* Impl. for functions only used in this translation unit */
