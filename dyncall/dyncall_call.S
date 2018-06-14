@@ -6,7 +6,7 @@
  Description: assembly call kernel, auto-selected by gcc / Plan9 build system
  License:
 
-   Copyright (c) 2007-2015 Daniel Adler <dadler@uni-goettingen.de>, 
+   Copyright (c) 2007-2018 Daniel Adler <dadler@uni-goettingen.de>, 
                            Tassilo Philipp <tphilipp@potion-studios.com>
 
    Permission to use, copy, modify, and distribute this software for any
@@ -67,7 +67,15 @@
 #  elif defined(DC__Arch_PPC64)
 #    include "dyncall_call_ppc64.S"
 #  elif defined(DC__Arch_MIPS) || defined(DC__Arch_MIPS64)
-#    include "dyncall_call_mips_gas.S"
+#    if defined(DC__ABI_MIPS_O32)
+#      include "dyncall_call_mips_o32.S"
+#    elif defined(DC__ABI_MIPS_N64)
+#      include "dyncall_call_mips_n64.S"
+#    elif defined(DC__ABI_MIPS_N32)
+#      include "dyncall_call_mips_n32.S"
+#    else
+#      include "dyncall_call_mips_eabi_gas.s"
+#    endif
 #  elif defined(DC__Arch_Sparc64)
 #    include "dyncall_call_sparc64.s"
 #  elif defined(DC__Arch_Sparc)
