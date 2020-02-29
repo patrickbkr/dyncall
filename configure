@@ -261,16 +261,18 @@ esac
 
 # Generate all makefiles needed
 
-FILES=`( cd $SRCTOP ; find . -name "Makefile.generic" )`
+FILES=`( cd "$SRCTOP" ; find . -name "Makefile.generic" )`
 for FILE in $FILES ; do
   SRCFILE="$SRCTOP/$FILE"
   BLDFILE="$BLDTOP/$FILE"
-  SRCDIR=`dirname $SRCFILE`
-  BLDDIR=`dirname $BLDFILE`
+  SRCDIR=`dirname "$SRCFILE"`
+  BLDDIR=`dirname "$BLDFILE"`
   mkdir -p "$BLDDIR"
-  cat <<EOF >$BLDDIR/Makefile
-VPATH = $SRCDIR
-include $BLDTOP/Makefile.config
+  MAKESRCDIR=`echo "$SRCDIR" | sed -e's/\([\\ ]\)/\\\\\\1/g'`
+  MAKEBLDTOP=`echo "$BLDTOP" | sed -e's/\([\\ ]\)/\\\\\\1/g'`
+  cat <<EOF >"$BLDDIR/Makefile"
+VPATH = $MAKESRCDIR
+include $MAKEBLDTOP/Makefile.config
 include \${VPATH}/Makefile.generic
 EOF
 done
